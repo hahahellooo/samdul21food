@@ -37,10 +37,10 @@ def read_root():
 def food(name:str):
     current_time = datetime.now()strftime('%Y-%m-%d %H:%M:%S')
 
-    with open(file_path, mode='a', encodinf='utf-8') as f:
+    with open(file_path, mode='a', encoding='utf-8') as f:
         writer = csv.writer(f)
-        writer.writerow([name, currnet_time])
-
+        writer.writerow([name, current_time])
+    
     return {"food":name, "time": current_time}
 
 

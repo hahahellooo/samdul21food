@@ -32,10 +32,10 @@ def food(name:str):
 
     file_path=os.path.join('code','data','food.csv')
     if not os.path.exists(file_path):
-        os.makedirs(os.path.dirname(file_path), exist_ok=False)
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
         with open(file_path, mode='w', encoding='utf-8') as f:
             writer = csv.writer(f)
-            writer.writerow['food','time']
+            writer.writerow('food','time')
 
 
     with open(file_path, mode='a', encoding='utf-8') as f:

@@ -20,13 +20,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-user_path=os.expanduser('~')
-file_path=os.path.join(user_path,'code','data','food.csv')
-if not os.exists(file_path):
-    os.makedirs(os.path.dirname(file_path), exist=ok=True)
-    with open(file_path, mode='w', encoding='utf--8') as f:
-        writer = csv.writer(f)
-        writer.writerow['food','time']
 
 
 @app.get("/")
@@ -35,7 +28,15 @@ def read_root():
 
 @app.get("/food")
 def food(name:str):
-    current_time = datetime.now()strftime('%Y-%m-%d %H:%M:%S')
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    file_path=os.path.join('code','data','food.csv')
+    if not os.exists(file_path):
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, mode='w', encoding='utf-8') as f:
+            writer = csv.writer(f)
+            writer.writerow['food','time']
+
 
     with open(file_path, mode='a', encoding='utf-8') as f:
         writer = csv.writer(f)

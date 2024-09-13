@@ -30,15 +30,18 @@ def food(name:str):
     now = datetime.datetime.now()
     current_time = now.strftime('%Y-%m-%d %H:%M:%S')
 
-    file_path=os.path.join('code','data','food.csv')
+    file_path='/home/hahahellooo/code/data/food.csv'
+    dir_path=os.path.dirname(file_path)
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path, exist_ok=True)
+
     if not os.path.exists(file_path):
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)
-        with open(file_path, mode='w', encoding='utf-8') as f:
+        with open(file_path, mode='w', encoding='utf-8',  newline='') as f:
             writer = csv.writer(f)
-            writer.writerow('food','time')
+            writer.writerow(['food','time]')
 
 
-    with open(file_path, mode='a', encoding='utf-8') as f:
+    with open(file_path, mode='a', encoding='utf-8',newline='') as f:
         writer = csv.writer(f)
         writer.writerow([name, current_time])
 

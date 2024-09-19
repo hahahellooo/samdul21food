@@ -27,24 +27,24 @@ def read_root():
 
 @app.get("/food")
 def food(name:str):
+    now = datetime.datetime.now()
+    current_time = now.strftime('%Y-%m-%d %H:%M:%S')
 
     import pymysql.cursors
     connection = pymysql.connect(host=os.getenv("DB_IP", "localhost"),
-                                 user='food'
-                                 password='1234'
+                                 user='food',
+                                 password='1234',
                                  port=int(os.getenv("DB_PORT","33306")),
                                  database='fooddb',
                                  cursorclass=pymysql.cursors.DictCursor)
     with connection:
         with connection.cursor() as cursor:
             sql = "INSERT INTO `foodhistory`(username, foodname,dt) VALUES (%s, %s, %s)"
-            cursor.execute(sql,("n21", food, time))
+            cursor.execute(sql,("n21", name, current_time))
             result = cursor.fetchone()
             print(result)
         connection.commit()
 
-    now = datetime.datetime.now()
-    current_time = now.strftime('%Y-%m-%d %H:%M:%S')
 
     file_path='/home/hahahellooo/code/data/food.csv'
     dir_path=os.path.dirname(file_path)
@@ -54,7 +54,7 @@ def food(name:str):
     if not os.path.exists(file_path):
         with open(file_path, mode='w', encoding='utf-8',  newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(['food','time]')
+            writer.writerow(['food','time'])
 
 
     with open(file_path, mode='a', encoding='utf-8',newline='') as f:

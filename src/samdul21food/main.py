@@ -31,8 +31,7 @@ def read_root():
 
 @app.get("/food")
 def food(name:str):
-    hi=datetime.now(timezone('Asia/Seoul'))
-    current_time = hi.strftime('%Y-%m-%d %H:%M:%S')
+    current_time=datetime.now(timezone('Asia/Seoul')).strftime('%Y-%m-%d %H:%M:%S')
 
     connection = pymysql.connect(host=os.getenv("DB_IP", "localhost"),
                                  user='food',

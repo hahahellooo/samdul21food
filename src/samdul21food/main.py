@@ -8,8 +8,6 @@ import csv
 from datetime import datetime
 from pytz import timezone
 
-datetime.now(timezone('Asia/Seoul'))
-
 app = FastAPI()
 
 origins = [

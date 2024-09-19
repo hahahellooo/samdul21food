@@ -5,11 +5,16 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 import datetime
 import csv
+from datetime import datetime
+from pytz import timezone
+
+datetime.now(timezone('Asia/Seoul'))
 
 app = FastAPI()
 
 origins = [
     "http://localhost:8899",
+    "https://samdul21food.web.app"
 ]
 
 app.add_middleware(
@@ -28,8 +33,8 @@ def read_root():
 
 @app.get("/food")
 def food(name:str):
-    now = datetime.datetime.now()
-    current_time = now.strftime('%Y-%m-%d %H:%M:%S')
+    hi=datetime.now(timezone('Asia/Seoul'))
+    current_time = hi.strftime('%Y-%m-%d %H:%M:%S')
 
     connection = pymysql.connect(host=os.getenv("DB_IP", "localhost"),
                                  user='food',
@@ -46,7 +51,7 @@ def food(name:str):
         connection.commit()
 
 
-    file_path='/home/hahahellooo/code/data/food.csv'
+    file_path=os.getenv("FILE_PATH",f"{os.getenv('HOME')}/tmp/foodcsv/food.csv")
     dir_path=os.path.dirname(file_path)
     if not os.path.exists(dir_path):
         os.makedirs(dir_path, exist_ok=True)

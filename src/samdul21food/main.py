@@ -27,6 +27,22 @@ def read_root():
 
 @app.get("/food")
 def food(name:str):
+
+    import pymysql.cursors
+    connection = pymysql.connect(host=os.getenv("DB_IP", "localhost"),
+                                 user='food'
+                                 password='1234'
+                                 port=int(os.getenv("DB_PORT","33306")),
+                                 database='fooddb',
+                                 cursorclass=pymysql.cursors.DictCursor)
+    with connection:
+        with connection.cursor() as cursor:
+            sql = "INSERT INTO `foodhistory`(username, foodname,dt) VALUES (%s, %s, %s)"
+            cursor.execute(sql,("n21", food, time))
+            result = cursor.fetchone()
+            print(result)
+        connection.commit()
+
     now = datetime.datetime.now()
     current_time = now.strftime('%Y-%m-%d %H:%M:%S')
 

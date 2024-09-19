@@ -1,5 +1,6 @@
 from typing import Union
 from fastapi import FastAPI
+import pymysql.cursors
 from fastapi.middleware.cors import CORSMiddleware
 import os
 import datetime
@@ -30,7 +31,6 @@ def food(name:str):
     now = datetime.datetime.now()
     current_time = now.strftime('%Y-%m-%d %H:%M:%S')
 
-    import pymysql.cursors
     connection = pymysql.connect(host=os.getenv("DB_IP", "localhost"),
                                  user='food',
                                  password='1234',

@@ -52,13 +52,14 @@ def food(name:str):
     dir_path=os.path.dirname(file_path)
     if not os.path.exists(dir_path):
         os.makedirs(dir_path, exist_ok=True)
-
+    
+    # file_path 없으면 추가
     if not os.path.exists(file_path):
         with open(file_path, mode='w', encoding='utf-8',  newline='') as f:
             writer = csv.writer(f)
             writer.writerow(['food','time'])
 
-
+    # file_path 있으면 정보 추가 'a'=add
     with open(file_path, mode='a', encoding='utf-8',newline='') as f:
         writer = csv.writer(f)
         writer.writerow([name, current_time])
